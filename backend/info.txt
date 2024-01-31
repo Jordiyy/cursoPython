@@ -1,0 +1,9 @@
+Documentación con Swagger --> http://127.0.0.1:8000/docs
+Documentación con Redocly --> http://127.0.0.1:8000/redoc
+
+Peticiones HTTP --> Postman
+Peticiones HTTP VSCode --> Thunder Client
+
+Servidor local --> uvicorn main:app --reload (main es el fichero inicial, main.py, sin la extensión .py)
+
+CRUD --> create, read, update, delete
