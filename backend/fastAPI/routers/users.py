@@ -1,7 +1,7 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter()
 
 # Entidad user
 class User(BaseModel):
@@ -17,12 +17,12 @@ users_db = [User(id=1, name="Jialiang", surname="Ye", age=27, url="www.google.es
             User(id=3, name="George", surname="Ye Yan", age=37, url="www.google.es")]
 
 
-@app.get("/users")
+@router.get("/users")
 async def list_users():
     return users_db
 
 
-@app.get("/list-users")
+@router.get("/list-users")
 async def users():
     return [{"name": "Jialiang", "surname": "Ye", "age": 27, "url": "www.google.es"},
             {"name": "Jordi", "surname": "Yan", "age": 17, "url": "google"},
@@ -30,14 +30,14 @@ async def users():
 
 
 # Path
-@app.get("/user/{id}")
+@router.get("/user/{id}")
 async def users(id: int):
     for user in users_db:
         if user.id == id:
             return user
         
 
-@app.get("/user-lambda/{id}")
+@router.get("/user-lambda/{id}")
 async def users(id: int):
     users = filter(lambda user: user.id == id, users_db)
 
@@ -48,7 +48,7 @@ async def users(id: int):
     
 
 # Query
-@app.get("/user-query")
+@router.get("/user-query")
 async def users(id: int):
     users = filter(lambda user: user.id == id, users_db)
 
@@ -59,7 +59,7 @@ async def users(id: int):
 
 
 # Create
-@app.post("/user/", response_model=User, status_code=201)
+@router.post("/user/", response_model=User, status_code=201)
 async def user(user: User):
     if type(search_user(user.id)) == User:
         raise HTTPException(status_code=404, detail="El usuario ya existe")
@@ -69,7 +69,7 @@ async def user(user: User):
 
 
 # Update
-@app.put("/user/")
+@router.put("/user/")
 async def user(user: User):
     found = False
     for index, userlist in enumerate(users_db):
@@ -84,7 +84,7 @@ async def user(user: User):
 
 
 # Delete
-@app.delete("/user/")
+@router.delete("/user/")
 async def user(id: int):
     for index, userlist in enumerate(users_db):
         if userlist.id == id:
@@ -100,18 +100,3 @@ def search_user(id: int):
         return list(users)[0]
     except:
         return [{"error": "No existe dicho usuario"}]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
