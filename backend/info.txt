@@ -4,6 +4,14 @@ Documentación con Redocly --> http://127.0.0.1:8000/redoc
 Peticiones HTTP --> Postman
 Peticiones HTTP VSCode --> Thunder Client
 
-Servidor local --> uvicorn main:app --reload (main es el fichero inicial, main.py, sin la extensión .py)
+Servidor local (linux) --> uvicorn main:app --reload (main es el fichero inicial, main.py, sin la extensión .py)
+
+En Windows --> 
+    Hay que instalar el modulo primero:
+        pip install fastapi
+        pip install uvicorn
+    Para levantar el backend:
+        python -m uvicorn main:app --reload
+
 
 CRUD --> create, read, update, delete
